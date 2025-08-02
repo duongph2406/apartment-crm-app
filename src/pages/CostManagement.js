@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Settings, Save, DollarSign, Zap, Droplets, Wifi, Users, Edit, Check, X } from 'lucide-react';
 import { storage } from '../utils/localStorage';
 import { getCurrentUser } from '../utils/auth';
-import { PERMISSIONS } from '../constants/roles';
-import { ROOMS } from '../constants/rooms';
-import './CostManagement.css';
 
 const CostManagement = () => {
   const [utilityPrices, setUtilityPrices] = useState({
@@ -19,7 +16,20 @@ const CostManagement = () => {
   const [tempRoomData, setTempRoomData] = useState({});
 
   const currentUser = getCurrentUser();
-  const permissions = PERMISSIONS[currentUser?.role] || {};
+
+  // Simplified rooms data
+  const ROOMS = [
+    { id: '102', number: '102', area: 26, price: 4200000, floor: 1, type: 'Studio' },
+    { id: '201', number: '201', area: 25, price: 5200000, floor: 2, type: '1PN' },
+    { id: '202', number: '202', area: 20, price: 4200000, floor: 2, type: 'Studio' },
+    { id: '301', number: '301', area: 25, price: 5200000, floor: 3, type: '1PN' },
+    { id: '302', number: '302', area: 20, price: 4200000, floor: 3, type: 'Studio' }
+  ];
+
+  // Simplified permissions
+  const permissions = {
+    canUpdate: currentUser?.role === 'admin' || currentUser?.role === 'manager'
+  };
 
   useEffect(() => {
     loadData();
@@ -99,142 +109,157 @@ const CostManagement = () => {
 
   if (!permissions.canUpdate) {
     return (
-      <div className="cost-management-page">
-        <div className="access-denied">
-          <Settings size={48} />
-          <h3>Không có quyền truy cập</h3>
-          <p>Bạn không có quyền quản lý chi phí</p>
-        </div>
+      <div style={{ padding: '20px', textAlign: 'center' }}>
+        <Settings size={48} />
+        <h3>Không có quyền truy cập</h3>
+        <p>Bạn không có quyền quản lý chi phí</p>
       </div>
     );
   }
 
   return (
-    <div className="cost-management-page">
-      <div className="page-header">
-        <h1>Quản lý chi phí</h1>
-        <p>Cài đặt giá dịch vụ và giá phòng</p>
+    <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ marginBottom: '30px' }}>
+        <h1 style={{ color: '#2c3e50', marginBottom: '8px' }}>Quản lý chi phí</h1>
+        <p style={{ color: '#666' }}>Cài đặt giá dịch vụ và giá phòng</p>
       </div>
 
       {/* Phần cài đặt giá dịch vụ */}
-      <div className="cost-section">
-        <div className="section-header">
-          <h2>
+      <div style={{ background: 'white', borderRadius: '8px', padding: '24px', marginBottom: '30px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+        <div style={{ marginBottom: '24px', borderBottom: '1px solid #eee', paddingBottom: '16px' }}>
+          <h2 style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#2c3e50', marginBottom: '8px' }}>
             <Settings size={24} />
             Cài đặt giá dịch vụ
           </h2>
         </div>
 
-        <div className="utility-prices-grid">
-          <div className="utility-price-card">
-            <div className="utility-icon electricity">
-              <Zap size={36} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '20px', border: '1px solid #eee', borderRadius: '8px' }}>
+            <div style={{ width: '60px', height: '60px', borderRadius: '8px', background: '#f39c12', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+              <Zap size={32} />
             </div>
-            <div className="utility-info">
-              <h3>Giá điện</h3>
-              <div className="price-input">
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: '0 0 8px 0', color: '#2c3e50' }}>Giá điện</h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <input
                   type="number"
                   value={utilityPrices.electricityPrice}
                   onChange={(e) => handleUtilityPriceChange('electricityPrice', e.target.value)}
+                  style={{ flex: 1, padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
                 />
-                <span className="unit">VNĐ/kWh</span>
+                <span style={{ fontSize: '14px', color: '#666' }}>VNĐ/kWh</span>
               </div>
             </div>
           </div>
 
-          <div className="utility-price-card">
-            <div className="utility-icon water">
-              <Droplets size={36} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '20px', border: '1px solid #eee', borderRadius: '8px' }}>
+            <div style={{ width: '60px', height: '60px', borderRadius: '8px', background: '#3498db', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+              <Droplets size={32} />
             </div>
-            <div className="utility-info">
-              <h3>Giá nước</h3>
-              <div className="price-input">
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: '0 0 8px 0', color: '#2c3e50' }}>Giá nước</h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <input
                   type="number"
                   value={utilityPrices.waterPrice}
                   onChange={(e) => handleUtilityPriceChange('waterPrice', e.target.value)}
+                  style={{ flex: 1, padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
                 />
-                <span className="unit">VNĐ/người</span>
+                <span style={{ fontSize: '14px', color: '#666' }}>VNĐ/người</span>
               </div>
             </div>
           </div>
 
-          <div className="utility-price-card">
-            <div className="utility-icon internet">
-              <Wifi size={36} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '20px', border: '1px solid #eee', borderRadius: '8px' }}>
+            <div style={{ width: '60px', height: '60px', borderRadius: '8px', background: '#9b59b6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+              <Wifi size={32} />
             </div>
-            <div className="utility-info">
-              <h3>Giá Internet</h3>
-              <div className="price-input">
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: '0 0 8px 0', color: '#2c3e50' }}>Giá Internet</h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <input
                   type="number"
                   value={utilityPrices.internetPrice}
                   onChange={(e) => handleUtilityPriceChange('internetPrice', e.target.value)}
+                  style={{ flex: 1, padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
                 />
-                <span className="unit">VNĐ/phòng</span>
+                <span style={{ fontSize: '14px', color: '#666' }}>VNĐ/phòng</span>
               </div>
             </div>
           </div>
 
-          <div className="utility-price-card">
-            <div className="utility-icon service">
-              <Users size={36} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '20px', border: '1px solid #eee', borderRadius: '8px' }}>
+            <div style={{ width: '60px', height: '60px', borderRadius: '8px', background: '#1abc9c', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+              <Users size={32} />
             </div>
-            <div className="utility-info">
-              <h3>Phí dịch vụ</h3>
-              <div className="price-input">
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: '0 0 8px 0', color: '#2c3e50' }}>Phí dịch vụ</h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <input
                   type="number"
                   value={utilityPrices.servicePrice}
                   onChange={(e) => handleUtilityPriceChange('servicePrice', e.target.value)}
+                  style={{ flex: 1, padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
                 />
-                <span className="unit">VNĐ/người</span>
+                <span style={{ fontSize: '14px', color: '#666' }}>VNĐ/người</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="section-actions">
-          <button className="btn btn-primary" onClick={saveUtilityPrices}>
-            <Save size={20} />
+        <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '16px', borderTop: '1px solid #eee' }}>
+          <button 
+            onClick={saveUtilityPrices}
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '8px', 
+              padding: '10px 20px', 
+              background: '#3498db', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: '6px', 
+              cursor: 'pointer' 
+            }}
+          >
+            <Save size={16} />
             Lưu giá dịch vụ
           </button>
         </div>
       </div>
 
       {/* Phần bảng chỉnh sửa giá phòng */}
-      <div className="cost-section">
-        <div className="section-header">
-          <h2>
+      <div style={{ background: 'white', borderRadius: '8px', padding: '24px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+        <div style={{ marginBottom: '24px', borderBottom: '1px solid #eee', paddingBottom: '16px' }}>
+          <h2 style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#2c3e50', marginBottom: '8px' }}>
             <DollarSign size={24} />
             Bảng giá phòng
           </h2>
-          <p>Chỉnh sửa giá thuê và trạng thái Internet cho từng phòng</p>
+          <p style={{ color: '#666', margin: 0 }}>Chỉnh sửa giá thuê và trạng thái Internet cho từng phòng</p>
         </div>
 
-        <div className="rooms-price-table">
-          <table>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
-              <tr>
-                <th>Phòng</th>
-                <th>Giá thuê</th>
-                <th>Internet</th>
-                <th>Thao tác</th>
+              <tr style={{ background: '#f8f9fa' }}>
+                <th style={{ padding: '12px', textAlign: 'left', borderBottom: '1px solid #eee' }}>Phòng</th>
+                <th style={{ padding: '12px', textAlign: 'left', borderBottom: '1px solid #eee' }}>Giá thuê</th>
+                <th style={{ padding: '12px', textAlign: 'left', borderBottom: '1px solid #eee' }}>Internet</th>
+                <th style={{ padding: '12px', textAlign: 'left', borderBottom: '1px solid #eee' }}>Thao tác</th>
               </tr>
             </thead>
             <tbody>
               {ROOMS.map(room => (
-                <tr key={room.id}>
-                  <td>
-                    <div className="room-info">
+                <tr key={room.id} style={{ borderBottom: '1px solid #eee' }}>
+                  <td style={{ padding: '12px' }}>
+                    <div>
                       <strong>Phòng {room.number}</strong>
-                      <span className="room-type">{room.type}</span>
+                      <div style={{ fontSize: '12px', color: '#666' }}>{room.type}</div>
                     </div>
                   </td>
-                  <td>
+                  <td style={{ padding: '12px' }}>
                     {editingRoom === room.id ? (
-                      <div className="edit-price-input">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <input
                           type="number"
                           value={tempRoomData.price}
@@ -242,18 +267,19 @@ const CostManagement = () => {
                             ...tempRoomData,
                             price: e.target.value
                           })}
+                          style={{ padding: '6px', border: '1px solid #ddd', borderRadius: '4px', width: '120px' }}
                         />
-                        <span className="unit">VNĐ</span>
+                        <span style={{ fontSize: '12px', color: '#666' }}>VNĐ</span>
                       </div>
                     ) : (
-                      <span className="price-display">
+                      <span style={{ fontWeight: '600', color: '#27ae60' }}>
                         {formatCurrency(roomPrices[room.id]?.price || room.price || 2000000)}
                       </span>
                     )}
                   </td>
-                  <td>
+                  <td style={{ padding: '12px' }}>
                     {editingRoom === room.id ? (
-                      <label className="internet-checkbox">
+                      <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                         <input
                           type="checkbox"
                           checked={tempRoomData.hasInternet}
@@ -262,45 +288,71 @@ const CostManagement = () => {
                             hasInternet: e.target.checked
                           })}
                         />
-                        <span className="checkmark"></span>
                         Internet
                       </label>
                     ) : (
-                      <div className="internet-status">
+                      <div>
                         {roomPrices[room.id]?.hasInternet ? (
-                          <span className="internet-enabled">
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#27ae60' }}>
                             <Wifi size={16} />
                             Có Internet
                           </span>
                         ) : (
-                          <span className="internet-disabled">
+                          <span style={{ color: '#e74c3c' }}>
                             Không có Internet
                           </span>
                         )}
                       </div>
                     )}
                   </td>
-                  <td>
-                    <div className="action-buttons">
+                  <td style={{ padding: '12px' }}>
+                    <div style={{ display: 'flex', gap: '8px' }}>
                       {editingRoom === room.id ? (
                         <>
                           <button 
-                            className="btn btn-sm btn-success"
                             onClick={() => handleSaveRoom(room.id)}
+                            style={{ 
+                              padding: '6px 12px', 
+                              background: '#27ae60', 
+                              color: 'white', 
+                              border: 'none', 
+                              borderRadius: '4px', 
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center'
+                            }}
                           >
                             <Check size={16} />
                           </button>
                           <button 
-                            className="btn btn-sm btn-secondary"
                             onClick={handleCancelEdit}
+                            style={{ 
+                              padding: '6px 12px', 
+                              background: '#95a5a6', 
+                              color: 'white', 
+                              border: 'none', 
+                              borderRadius: '4px', 
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center'
+                            }}
                           >
                             <X size={16} />
                           </button>
                         </>
                       ) : (
                         <button 
-                          className="btn btn-sm btn-primary"
                           onClick={() => handleEditRoom(room.id)}
+                          style={{ 
+                            padding: '6px 12px', 
+                            background: '#3498db', 
+                            color: 'white', 
+                            border: 'none', 
+                            borderRadius: '4px', 
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
                         >
                           <Edit size={16} />
                         </button>

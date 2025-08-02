@@ -458,3 +458,24 @@ export const getCurrentUser = () => {
 export const isAuthenticated = () => {
   return !!storage.getCurrentUser();
 };
+
+export const updateUser = (updatedUser) => {
+  // Cập nhật trong danh sách users
+  const users = storage.getUsers();
+  const userIndex = users.findIndex(u => u.id === updatedUser.id);
+  
+  if (userIndex !== -1) {
+    users[userIndex] = { ...users[userIndex], ...updatedUser };
+    storage.setUsers(users);
+    
+    // Cập nhật current user nếu đang đăng nhập
+    const currentUser = storage.getCurrentUser();
+    if (currentUser && currentUser.id === updatedUser.id) {
+      storage.setCurrentUser(updatedUser);
+    }
+    
+    return true;
+  }
+  
+  return false;
+};

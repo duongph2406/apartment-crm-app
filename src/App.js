@@ -23,6 +23,7 @@ const CostManagement = lazy(() => import('./pages/CostManagement'));
 const Accounts = lazy(() => import('./pages/Accounts'));
 const Feedback = lazy(() => import('./pages/Feedback'));
 const SystemManagement = lazy(() => import('./pages/SystemManagement'));
+const Profile = lazy(() => import('./pages/Profile'));
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -80,6 +81,7 @@ function App() {
                 <Route path="/expenses" element={<CostManagement />} />
                 <Route path="/accounts" element={<Accounts />} />
                 <Route path="/system" element={<SystemManagement />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </Suspense>

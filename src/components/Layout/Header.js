@@ -1,13 +1,35 @@
-import React, { useState } from 'react';
-import { ChevronDown, User, LogOut } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronDown, LogOut, Settings } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../../utils/auth';
+import Avatar from '../common/Avatar';
 
 const Header = ({ currentUser, onLogout }) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = () => {
     logout();
     onLogout();
+  };
+
+  const handleProfileClick = () => {
+    navigate('/profile');
+    setShowDropdown(false);
   };
 
   const getRoleLabel = (role) => {
@@ -29,9 +51,11 @@ const Header = ({ currentUser, onLogout }) => {
         
         <div className="header-user">
           <div 
+            ref={dropdownRef}
             className="user-dropdown"
             onClick={() => setShowDropdown(!showDropdown)}
           >
+            <Avatar user={currentUser} size={36} />
             <div className="user-info">
               <span className="user-name">{currentUser?.fullName}</span>
               <span className="user-role">{getRoleLabel(currentUser?.role)}</span>
@@ -40,14 +64,21 @@ const Header = ({ currentUser, onLogout }) => {
             
             {showDropdown && (
               <div className="dropdown-menu">
-                <div className="dropdown-item">
-                  <User size={16} />
+                <div className="dropdown-item user-info-item">
+                  <Avatar user={currentUser} size={32} />
                   <div>
                     <div className="dropdown-name">{currentUser?.fullName}</div>
                     <div className="dropdown-email">{currentUser?.email}</div>
                   </div>
                 </div>
                 <hr />
+                <button 
+                  className="dropdown-item"
+                  onClick={handleProfileClick}
+                >
+                  <Settings size={16} />
+                  <span>Thông tin tài khoản</span>
+                </button>
                 <button 
                   className="dropdown-item logout-btn"
                   onClick={handleLogout}

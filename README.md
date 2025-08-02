@@ -1,49 +1,124 @@
-# Getting Started with Create React App
+# Hệ thống CRM Quản lý Căn hộ
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hệ thống quản lý căn hộ được xây dựng bằng React với 4 cấp độ quyền hạn khác nhau.
 
-## Available Scripts
+## Tính năng chính
 
-In the project directory, you can run:
+### 🏢 Quản lý Phòng
+- Hiển thị danh sách 11 phòng cố định (102, 201, 202, 301, 302, 401, 402, 501, 502, 601, 602)
+- Theo dõi trạng thái phòng (trống, đã thuê, bảo trì)
+- Xem thông tin khách thuê và hợp đồng
 
-### `npm start`
+### 👥 Quản lý Khách thuê
+- Thêm, sửa, xóa thông tin khách thuê
+- Lưu trữ thông tin liên hệ, CMND/CCCD
+- Tìm kiếm khách thuê
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 📋 Quản lý Hợp đồng
+- Tạo hợp đồng thuê phòng
+- Theo dõi thời hạn hợp đồng
+- Quản lý trạng thái hợp đồng
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 💰 Quản lý Hóa đơn
+- Tạo hóa đơn hàng tháng
+- Tính toán tiền thuê, điện, nước, dịch vụ
+- Theo dõi trạng thái thanh toán
 
-### `npm test`
+### 👤 Quản lý Tài khoản
+- Thêm, sửa, xóa tài khoản người dùng
+- Phân quyền theo vai trò
+- Bảo mật mật khẩu
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Phân quyền hệ thống
 
-### `npm run build`
+### 🔴 Admin
+- Toàn quyền: thêm, sửa, xóa mọi thông tin
+- Quản lý tài khoản và hệ thống
+- Truy cập tất cả tính năng
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🔵 Manager
+- Thêm tài khoản, tạo khách thuê, hợp đồng, hóa đơn
+- Không thể xóa dữ liệu quan trọng
+- Không truy cập quản lý hệ thống
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🟢 User
+- Chỉ xem thông tin
+- Không thể thêm, sửa, xóa
+- Không truy cập quản lý tài khoản
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🟣 Tenant
+- Chỉ xem thông tin hợp đồng, phòng và hóa đơn của mình
+- Không truy cập các tính năng quản lý
 
-### `npm run eject`
+## Cài đặt và chạy
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Yêu cầu hệ thống
+- Node.js 14+
+- npm hoặc yarn
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Cài đặt
+```bash
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Chạy ứng dụng
+```bash
+npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Ứng dụng sẽ chạy tại http://localhost:3000
 
-## Learn More
+## Tài khoản demo
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Admin
+- **Username:** admin
+- **Password:** admin123
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Manager  
+- **Username:** manager
+- **Password:** manager123
+
+### User
+- **Username:** user
+- **Password:** user123
+
+## Cấu trúc dự án
+
+```
+src/
+├── components/          # Components tái sử dụng
+│   ├── Auth/           # Đăng nhập
+│   └── Layout/         # Layout chính
+├── pages/              # Các trang chính
+├── constants/          # Dữ liệu cố định
+├── utils/              # Utilities
+└── App.js             # Component chính
+```
+
+## Công nghệ sử dụng
+
+- **React 19** - Framework chính
+- **React Router** - Điều hướng
+- **Lucide React** - Icons
+- **LocalStorage** - Lưu trữ dữ liệu tạm thời
+- **CSS3** - Styling
+
+## Tính năng đang phát triển
+
+- 🚧 Báo cáo sự cố
+- 🚧 Phản ánh khách hàng  
+- 🚧 Quản lý chi phí
+- 🚧 Quản lý hệ thống
+
+## Lưu ý
+
+- Tất cả dữ liệu được lưu trong LocalStorage
+- Dữ liệu sẽ mất khi xóa cache trình duyệt
+- Đây là phiên bản demo, không dùng cho production
+
+## Liên hệ
+
+Nếu có thắc mắc hoặc góp ý, vui lòng liên hệ qua email hoặc tạo issue trên GitHub.
 
 ### Code Splitting
 

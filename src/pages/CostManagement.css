@@ -1,0 +1,406 @@
+/* Cost Management Page Styles */
+.cost-management-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: #7f8c8d;
+  margin: 0;
+}
+
+.access-denied {
+  text-align: center;
+  padding: 60px 20px;
+  color: #7f8c8d;
+}
+
+.access-denied svg {
+  margin-bottom: 20px;
+  color: #e74c3c;
+}
+
+/* Cost Section */
+.cost-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-header {
+  margin-bottom: 24px;
+  border-bottom: 2px solid #f8f9fa;
+  padding-bottom: 16px;
+}
+
+.section-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.section-header p {
+  color: #7f8c8d;
+  margin: 0;
+}
+
+/* Utility Prices Grid */
+.utility-prices-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px 20px;
+  margin-bottom: 24px;
+}
+
+.utility-price-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  border: 2px solid #f1f2f6;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  min-height: 100px;
+}
+
+.utility-price-card:hover {
+  border-color: #3498db;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
+}
+
+.utility-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.utility-icon.electricity {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.utility-icon.water {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.utility-icon.internet {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+.utility-icon.service {
+  background: linear-gradient(135deg, #1abc9c, #16a085);
+}
+
+.utility-info {
+  flex: 1;
+}
+
+.utility-info h3 {
+  margin: 0 0 12px 0;
+  color: #2c3e50;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.price-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.price-input input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #2c3e50;
+  transition: border-color 0.3s ease;
+  min-width: 0;
+}
+
+.price-input input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.price-input .unit {
+  font-size: 15px;
+  color: #7f8c8d;
+  font-weight: 500;
+  min-width: 90px;
+  text-align: left;
+}
+
+/* Section Actions */
+.section-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid #f1f2f6;
+}
+
+/* Rooms Price Table */
+.rooms-price-table {
+  overflow-x: auto;
+}
+
+.rooms-price-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.rooms-price-table th,
+.rooms-price-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #f1f2f6;
+}
+
+.rooms-price-table th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #2c3e50;
+  position: sticky;
+  top: 0;
+}
+
+.rooms-price-table tr:hover {
+  background: #f8f9fa;
+}
+
+.room-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.room-info strong {
+  color: #2c3e50;
+  font-size: 16px;
+}
+
+.room-type {
+  font-size: 12px;
+  color: #7f8c8d;
+  background: #f1f2f6;
+  padding: 2px 8px;
+  border-radius: 12px;
+  align-self: flex-start;
+}
+
+.price-display {
+  font-weight: 600;
+  color: #27ae60;
+  font-size: 16px;
+}
+
+.edit-price-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 200px;
+}
+
+.edit-price-input input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 2px solid #3498db;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.edit-price-input .unit {
+  font-size: 12px;
+  color: #7f8c8d;
+}
+
+/* Internet Status */
+.internet-status {
+  display: flex;
+  align-items: center;
+}
+
+.internet-enabled {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #27ae60;
+  font-weight: 500;
+}
+
+.internet-disabled {
+  color: #e74c3c;
+  font-weight: 500;
+}
+
+/* Internet Checkbox */
+.internet-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.internet-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.internet-checkbox .checkmark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.internet-checkbox input[type="checkbox"]:checked + .checkmark {
+  background: #3498db;
+  border-color: #3498db;
+}
+
+.internet-checkbox input[type="checkbox"]:checked + .checkmark::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: #3498db;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2980b9;
+}
+
+.btn-success {
+  background: #27ae60;
+  color: white;
+}
+
+.btn-success:hover {
+  background: #229954;
+}
+
+.btn-secondary {
+  background: #95a5a6;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #7f8c8d;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cost-management-page {
+    padding: 16px;
+  }
+
+  .utility-prices-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .utility-price-card {
+    padding: 16px;
+  }
+
+  .utility-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .rooms-price-table {
+    font-size: 14px;
+  }
+
+  .rooms-price-table th,
+  .rooms-price-table td {
+    padding: 12px 8px;
+  }
+
+  .section-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .utility-prices-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .utility-price-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .price-input {
+    justify-content: center;
+  }
+
+  .action-buttons {
+    justify-content: center;
+  }
+}

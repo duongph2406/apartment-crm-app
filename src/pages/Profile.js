@@ -19,7 +19,7 @@ import { getCurrentUser, updateUser } from '../utils/auth';
 import Avatar from '../components/common/Avatar';
 import { validateImageFile, resizeImage } from '../utils/avatar';
 
-const Profile = () => {
+const Profile = ({ onUserUpdate }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
@@ -168,6 +168,12 @@ const Profile = () => {
       
       updateUser(updatedUser);
       setCurrentUser(updatedUser);
+      
+      // Thông báo cho App.js cập nhật currentUser
+      if (onUserUpdate) {
+        onUserUpdate(updatedUser);
+      }
+      
       setIsEditing(false);
       alert('Cập nhật thông tin thành công!');
     } catch (error) {
@@ -192,6 +198,12 @@ const Profile = () => {
       
       updateUser(updatedUser);
       setCurrentUser(updatedUser);
+      
+      // Thông báo cho App.js cập nhật currentUser
+      if (onUserUpdate) {
+        onUserUpdate(updatedUser);
+      }
+      
       setIsChangingPassword(false);
       setPasswordData({
         currentPassword: '',
@@ -252,6 +264,11 @@ const Profile = () => {
       setCurrentUser(updatedUser);
       setFormData(prev => ({ ...prev, avatar: resizedImage }));
       
+      // Thông báo cho App.js cập nhật currentUser
+      if (onUserUpdate) {
+        onUserUpdate(updatedUser);
+      }
+      
       alert('Cập nhật avatar thành công!');
     } catch (error) {
       alert('Có lỗi xảy ra khi tải lên avatar!');
@@ -274,6 +291,11 @@ const Profile = () => {
       updateUser(updatedUser);
       setCurrentUser(updatedUser);
       setFormData(prev => ({ ...prev, avatar: '' }));
+      
+      // Thông báo cho App.js cập nhật currentUser
+      if (onUserUpdate) {
+        onUserUpdate(updatedUser);
+      }
       
       alert('Đã xóa avatar thành công!');
     }

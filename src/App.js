@@ -47,6 +47,10 @@ function App() {
     setCurrentUser(null);
   };
 
+  const handleUserUpdate = (updatedUser) => {
+    setCurrentUser(updatedUser);
+  };
+
   if (loading) {
     return (
       <div style={{ 
@@ -81,7 +85,7 @@ function App() {
                 <Route path="/expenses" element={<CostManagement />} />
                 <Route path="/accounts" element={<Accounts />} />
                 <Route path="/system" element={<SystemManagement />} />
-                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile" element={<Profile onUserUpdate={handleUserUpdate} />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </Suspense>
